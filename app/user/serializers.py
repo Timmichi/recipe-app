@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'name') # Only fields that we want to allow the user to change via the API.
+        fields = ['email', 'password', 'name'] # Only fields that we want to allow the user to change via the API.
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}} # write_only means the user can write the value and save it, but there won't be a value returned from the API response (they can't read it)
 
     '''These methods will override existing methods in the ModelSerializer class'''

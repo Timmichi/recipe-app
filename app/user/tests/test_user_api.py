@@ -17,8 +17,8 @@ def create_user(**params):
     """Helper function to create and return a new user"""
     return get_user_model().objects.create_user(**params)
 
-class PublicUserAPITests(TestCase): # Doesn't require authentication
-    """Test the public features of user API"""
+class UnauthedUserAPITests(TestCase):
+    """Test unauthenticated user API requests"""
 
     def setUp(self):
         self.client = APIClient()
@@ -93,7 +93,7 @@ class PublicUserAPITests(TestCase): # Doesn't require authentication
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateUserAPITests(TestCase): # Requires authentication
+class AuthedUserAPITests(TestCase): # Requires authentication
     """Test API requests that require authentication"""
 
     def setUp(self):
