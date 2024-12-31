@@ -1,0 +1,13 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.form-input {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

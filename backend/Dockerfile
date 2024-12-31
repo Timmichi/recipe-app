@@ -5,8 +5,8 @@ ENV PYTHONUNBUFFERER=1
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
-COPY ./app /app
-WORKDIR /app
+COPY . /app/backend
+WORKDIR /app/backend
 EXPOSE 8000
 
 ARG DEV=false
