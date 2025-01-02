@@ -3,23 +3,14 @@ import { useState } from "react";
 import api from "../api";
 import IngredientForm from "./IngredientForm";
 
-const INITIAL_STATE = {
-  title: "",
-  description: "",
-  time_minutes: "",
-  price: "",
-  link: "",
-  ingredients: []
-};
-
-function CreateRecipeForm({ onSuccess }) {
-  const [formData, setFormData] = useState(INITIAL_STATE);
+function RecipeForm({ recipe, onSuccess }) {
+  const [recipe, setRecipe] = useState(recipe);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/recipes/", formData);
-      setFormData(INITIAL_STATE);
+      await api.post("/recipes/", recipe);
+      setRecipe(INITIAL_STATE);
       onSuccess(); // Fetch recipes again
     } catch (error) {
       console.error("Error creating recipe:", error);
@@ -28,7 +19,7 @@ function CreateRecipeForm({ onSuccess }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setRecipe(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -36,7 +27,7 @@ function CreateRecipeForm({ onSuccess }) {
       <h2>Add New Recipe</h2>
       <input
         name="title"
-        value={formData.title}
+        value={recipe.title}
         onChange={handleChange}
         placeholder="Recipe Title"
         required
@@ -44,7 +35,7 @@ function CreateRecipeForm({ onSuccess }) {
       <input
         type="number"
         name="time_minutes"
-        value={formData.time_minutes}
+        value={recipe.time_minutes}
         onChange={handleChange}
         placeholder="Cooking Time (minutes)"
         required
@@ -52,7 +43,7 @@ function CreateRecipeForm({ onSuccess }) {
       <input
         type="number"
         name="price"
-        value={formData.price}
+        value={recipe.price}
         onChange={handleChange}
         placeholder="Price"
         step="0.01"
@@ -61,23 +52,23 @@ function CreateRecipeForm({ onSuccess }) {
       <input
         type="url"
         name="link"
-        value={formData.link}
+        value={recipe.link}
         onChange={handleChange}
         placeholder="Recipe Link"
       />
       <textarea
         name="description"
-        value={formData.description}
+        value={recipe.description}
         onChange={handleChange}
         placeholder="Recipe Description"
       />
       <IngredientForm
-        ingredients={formData.ingredients}
-        setIngredients={(ingredients) => setFormData(prev => ({ ...prev, ingredients }))}
+        ingredients={recipe.ingredients}
+        setIngredients={(ingredients) => setRecipe(prev => ({ ...prev, ingredients }))}
       />
       <button type="submit">Add Recipe</button>
     </form>
   );
 }
 
-export default CreateRecipeForm;
+export default RecipeForm;
