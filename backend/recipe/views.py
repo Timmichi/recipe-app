@@ -18,7 +18,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Return objects for the current authenticated user only"""
-        return self.queryset.filter(user=self.request.user)
+        return self.queryset.filter(user=self.request.user).order_by('-created_at', '-id')
     
     def perform_create(self, serializer):
         """Create a new recipe"""

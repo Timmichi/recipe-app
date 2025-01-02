@@ -1,6 +1,7 @@
 import RecipeCard from "./RecipeCard";
 
 function RecipeList({ recipes }) {
+  console.log(recipes);
   return (
     <div className="recipe-list">
       <h2>Your Recipes</h2>

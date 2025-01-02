@@ -2,7 +2,6 @@ import { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { AUTH_TOKEN } from "../constants";
-import "../styles/Form.css";
 
 function LoginRegisterForm({ route, method }) {
   const [email, setEmail] = useState("");

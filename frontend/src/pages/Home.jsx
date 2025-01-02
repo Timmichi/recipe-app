@@ -4,12 +4,30 @@ import api from "../api";
 import RecipeForm from "../components/RecipeForm";
 import RecipeList from "../components/RecipeList";
 
+const INITIAL_STATE = {
+  title: "",
+  time_minutes: "",
+  price: "",
+  link: "",
+  description: "",
+  ingredients: []
+};
+
 function Home() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     fetchRecipes();
   }, []);
+
+  const onSuccess = async (recipe) => {
+    try {
+      await api.post("/recipes/", recipe);
+      fetchRecipes();
+    } catch (error) {
+      console.error("Error creating recipe:", error);
+    }
+  };
 
   const fetchRecipes = async () => {
     try {
@@ -22,7 +40,7 @@ function Home() {
 
   return (
     <div className="container">
-      <RecipeForm onSuccess={fetchRecipes} />
+      <RecipeForm initialRecipe={INITIAL_STATE} onSuccess={onSuccess} isRecipeUpdate={false} />
       <RecipeList recipes={recipes} />
     </div>
   );

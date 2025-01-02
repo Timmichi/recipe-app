@@ -1,20 +1,13 @@
-// src/components/RecipeForm.jsx
 import { useState } from "react";
-import api from "../api";
 import IngredientForm from "./IngredientForm";
 
-function RecipeForm({ recipe, onSuccess }) {
-  const [recipe, setRecipe] = useState(recipe);
+function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
+  const [recipe, setRecipe] = useState(initialRecipe);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await api.post("/recipes/", recipe);
-      setRecipe(INITIAL_STATE);
-      onSuccess(); // Fetch recipes again
-    } catch (error) {
-      console.error("Error creating recipe:", error);
-    }
+    // console.log(recipe);
+    onSuccess(recipe);
   };
 
   const handleChange = (e) => {
@@ -26,6 +19,7 @@ function RecipeForm({ recipe, onSuccess }) {
     <form onSubmit={handleSubmit} className="form-container">
       <h2>Add New Recipe</h2>
       <input
+        className="form-input"
         name="title"
         value={recipe.title}
         onChange={handleChange}
@@ -33,6 +27,7 @@ function RecipeForm({ recipe, onSuccess }) {
         required
       />
       <input
+        className="form-input"
         type="number"
         name="time_minutes"
         value={recipe.time_minutes}
@@ -41,6 +36,7 @@ function RecipeForm({ recipe, onSuccess }) {
         required
       />
       <input
+        className="form-input"
         type="number"
         name="price"
         value={recipe.price}
@@ -50,23 +46,27 @@ function RecipeForm({ recipe, onSuccess }) {
         required
       />
       <input
+        className="form-input"
         type="url"
         name="link"
         value={recipe.link}
         onChange={handleChange}
         placeholder="Recipe Link"
       />
-      <textarea
-        name="description"
-        value={recipe.description}
-        onChange={handleChange}
-        placeholder="Recipe Description"
-      />
+      <div>
+        <textarea style={{ width: "580px", height: "100px" }}
+          className="form-input"
+          name="description"
+          value={recipe.description}
+          onChange={handleChange}
+          placeholder="Recipe Description"
+        />
+      </div>
       <IngredientForm
         ingredients={recipe.ingredients}
         setIngredients={(ingredients) => setRecipe(prev => ({ ...prev, ingredients }))}
       />
-      <button type="submit">Add Recipe</button>
+      {isRecipeUpdate ? (<button type="submit">Save Changes</button>) : (<button type="submit">Create Recipe</button>)}
     </form>
   );
 }

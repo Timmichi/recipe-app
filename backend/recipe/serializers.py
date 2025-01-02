@@ -42,9 +42,9 @@ class RecipeDetailSerializer(RecipeSerializer):
         ingredients_data = validated_data.pop('ingredients', [])
         instance = super().update(instance, validated_data)
         
-        # Get existing ingredients
+        ingredients_data_ids = {ingredient_data.get('id') for ingredient_data in ingredients_data}
+        instance.ingredients.exclude(id__in=ingredients_data_ids).delete() # Delete ingredients that are not in the ingredients_data
         existing_ingredients = {i.id: i for i in instance.ingredients.all()}
-        
         for ingredient_data in ingredients_data:
             ingredient_id = ingredient_data.pop('id', None)
             if ingredient_id and ingredient_id in existing_ingredients:
