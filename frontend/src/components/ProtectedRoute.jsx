@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import api from "../api";
 import { AUTH_TOKEN } from "../constants";
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute() {
   const [isAuthorized, setIsAuthorized] = useState(null);
 
   useEffect(() => {
@@ -19,11 +19,11 @@ function ProtectedRoute({ children }) {
     }
 
     try {
-      await api.get("/user/me/"); // Using the dedicated user endpoint
+      await api.get("/user/me/");
       setIsAuthorized(true);
     } catch (error) {
       setIsAuthorized(false);
-      localStorage.removeItem(AUTH_TOKEN); // Clear invalid token
+      localStorage.removeItem(AUTH_TOKEN);
     }
   };
 
@@ -31,7 +31,7 @@ function ProtectedRoute({ children }) {
     return <div>Loading...</div>;
   }
 
-  return isAuthorized ? children : <Navigate to="/login" />;
+  return isAuthorized ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default ProtectedRoute;

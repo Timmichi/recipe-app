@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AUTH_TOKEN } from "../constants";
 import "../styles/Form.css";
 
-function Form({ route, method }) {
+function LoginRegisterForm({ route, method }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -82,4 +82,4 @@ function Form({ route, method }) {
   );
 }
 
-export default Form;
+export default LoginRegisterForm;

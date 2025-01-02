@@ -55,3 +55,19 @@ class Recipe(models.Model): # Vanilla Django model
 
     def __str__(self):
         return self.title
+
+
+class Ingredient(models.Model):
+    """Ingredient object"""
+    recipe = models.ForeignKey(
+        Recipe,
+        related_name='ingredients',
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255)
+    quantity = models.CharField(max_length=255, blank=True)
+    measurement = models.CharField(max_length=255, blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

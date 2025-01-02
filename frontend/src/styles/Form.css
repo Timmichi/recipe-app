@@ -11,3 +11,8 @@
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+.ingredient-container {
+  display: flex;
+  gap: 20px;
+}
