@@ -6,7 +6,6 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(recipe);
     onSuccess(recipe);
   };
 

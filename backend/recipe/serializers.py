@@ -8,7 +8,7 @@ from core.models import Recipe, Ingredient
 
 class IngredientSerializer(serializers.ModelSerializer):
     """Serializer for ingredient objects"""
-    id = serializers.IntegerField(required=False) # This is necessary because the id is read-only by default. id becomes writable and will be included in validated_data
+    id = serializers.IntegerField(required=False) # This is necessary because the id is read-only by default. id becomes writable and will be included in validated_data. This is optional because new ingredients will not have an id.
 
     class Meta:
         model = Ingredient
@@ -26,7 +26,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class RecipeDetailSerializer(RecipeSerializer):
     """Serializer for a recipe detail"""
-    ingredients = IngredientSerializer(many=True, required=False)
+    ingredients = IngredientSerializer(many=True, required=False) # this is a nested serializer that will be used to serialize the ingredients. required=False is necessary because we want to allow the ingredients to be optional.
 
     class Meta(RecipeSerializer.Meta):
         fields = RecipeSerializer.Meta.fields + ['description', 'ingredients']
