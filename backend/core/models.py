@@ -50,7 +50,7 @@ class Recipe(models.Model): # Vanilla Django model
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField()
-    price = models.DecimalField(max_digits=6, decimal_places=2) # Will coerce to a string by default when reserialized
+    price = models.DecimalField(max_digits=6, decimal_places=2) # Will coerce to a string by default when reserialized to JSON
     link = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

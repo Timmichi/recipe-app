@@ -14,15 +14,15 @@ function App() {
         {/* Public routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+
         {/* Protected routes with Layout */}
         <Route element={<Layout />}>
           <Route element={<ProtectedRoute />}>
-            <Route index element={<Home />} /> {/* Use index for root path */}
+            <Route path="/" element={<Home />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
           </Route>
         </Route>
-        
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
