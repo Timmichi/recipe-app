@@ -7,7 +7,7 @@ function RecipeCard({ recipe }) {
         <Link to={`/recipes/${recipe.id}`}>{recipe.title}</Link>
       </h3>
       <div className="recipe-details">
-        <span>Time: {recipe.time_minutes} minutes &nbsp;</span>
+        <span>Time: {recipe.time_minutes} minutes |&nbsp;</span>
         <span>Price: ${recipe.price}</span>
       </div>
     </div>

@@ -20,7 +20,7 @@ from core.models import Recipe
 from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
 
 
-RECIPES_URL = reverse('recipe:recipe-list') # /api/recipe/recipe-list/
+RECIPES_URL = reverse('recipe:recipe-list') # /api/recipes/
 
 
 # Helper function so we don't have to rewrite test inputs

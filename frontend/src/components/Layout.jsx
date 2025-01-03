@@ -6,7 +6,7 @@ function Layout() {
     <div className="app-container">
       <Navigation />
       <main className="main-content">
-        <Outlet /> {/* A placeholder that renders the matched child route's component, allowing for nested routes and dynamic content areas. */}
+        <Outlet />
       </main>
     </div>
   );

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import IngredientForm from "./IngredientForm";
 
-function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
+function RecipeForm({ initialRecipe, onSuccess, isCreateRecipe }) {
   const [recipe, setRecipe] = useState(initialRecipe);
 
   const handleSubmit = async (e) => {
@@ -11,7 +10,7 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRecipe(prev => ({ ...prev, [name]: value }));
+    setRecipe((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -33,6 +32,8 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
         onChange={handleChange}
         placeholder="Cooking Time (minutes)"
         required
+        min="1"
+        step="1"
       />
       <input
         className="form-input"
@@ -41,6 +42,8 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
         value={recipe.price}
         onChange={handleChange}
         placeholder="Price"
+        min="0"
+        max="9999.99"
         step="0.01"
         required
       />
@@ -53,7 +56,8 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
         placeholder="Recipe Link"
       />
       <div>
-        <textarea style={{ width: "580px", height: "100px" }}
+        <textarea
+          style={{ width: "580px", height: "100px" }}
           className="form-input"
           name="description"
           value={recipe.description}
@@ -61,11 +65,11 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
           placeholder="Recipe Description"
         />
       </div>
-      <IngredientForm
-        ingredients={recipe.ingredients}
-        setIngredients={(ingredients) => setRecipe(prev => ({ ...prev, ingredients }))}
-      />
-      {isRecipeUpdate ? (<button type="submit">Save Changes</button>) : (<button type="submit">Create Recipe</button>)}
+      {isCreateRecipe ? (
+        <button type="submit">Create Recipe</button>
+      ) : (
+        <button type="submit">Save Changes</button>
+      )}
     </form>
   );
 }

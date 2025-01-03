@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   price: "",
   link: "",
   description: "",
-  ingredients: []
+  ingredients: [],
 };
 
 function Home() {
@@ -40,7 +40,11 @@ function Home() {
 
   return (
     <div className="container">
-      <RecipeForm initialRecipe={INITIAL_STATE} onSuccess={onSuccess} isRecipeUpdate={false} />
+      <RecipeForm
+        initialRecipe={INITIAL_STATE}
+        onSuccess={onSuccess}
+        isCreateRecipe={true}
+      />
       <RecipeList recipes={recipes} />
     </div>
   );

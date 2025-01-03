@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api";
 import RecipeForm from "../components/RecipeForm";
+import NotFound from "./NotFound";
 
 function RecipeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchRecipe();
@@ -19,6 +22,9 @@ function RecipeDetail() {
       setRecipe(res.data);
     } catch (error) {
       console.error("Error fetching recipe:", error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,13 +47,19 @@ function RecipeDetail() {
     }
   };
 
-  if (!recipe) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <NotFound />;
+  if (!recipe) return null;
 
   return (
     <div className="recipe-detail">
       {isEditing ? (
         <>
-          <RecipeForm initialRecipe={recipe} onSuccess={onSuccess} isRecipeUpdate={true} />
+          <RecipeForm
+            initialRecipe={recipe}
+            onSuccess={onSuccess}
+            isCreateRecipe={false}
+          />
           <button onClick={() => setIsEditing(false)}>Cancel</button>
         </>
       ) : (
@@ -63,24 +75,9 @@ function RecipeDetail() {
               </a>
             )}
           </div>
-          <div className="ingredients">
-            <h3>Ingredients</h3>
-            <ul>
-              {recipe.ingredients.map(ingredient => (
-                <li key={ingredient.id}>
-                  {ingredient.name}
-                  {ingredient.quantity && ` - ${ingredient.quantity}`}
-                  {ingredient.measurement && ` ${ingredient.measurement}`}
-                  {ingredient.price && ` ($${ingredient.price})`}
-                </li>
-              ))}
-            </ul>
-          </div>
           <div className="button-group">
             <button onClick={() => setIsEditing(true)}>Edit Recipe</button>
-            <button onClick={handleDelete} className="delete-button">
-              Delete Recipe
-            </button>
+            <button onClick={handleDelete}>Delete Recipe</button>
           </div>
         </>
       )}
