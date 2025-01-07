@@ -11,12 +11,5 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'title', 'time_minutes', 'price', 'link']
+        fields = ['id', 'title', 'time_minutes', 'price', 'link', 'description']
         read_only_fields = ['id'] # We don't want the user to be able to change the ID of the recipe, but we want to return it in the response
-
-
-class RecipeDetailSerializer(RecipeSerializer):
-    """Serializer for a recipe detail"""
-    # We can use the RecipeSerializer and override the fields that we want to be read-only
-    class Meta(RecipeSerializer.Meta):
-        fields = RecipeSerializer.Meta.fields + ['description']

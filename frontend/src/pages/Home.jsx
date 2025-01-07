@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import api from "../api";
 import "../styles/Form.css";
+import RecipeForm from "../components/RecipeForm";
+import RecipeList from "../components/RecipeList";
 
 function Home() {
   const [recipes, setRecipes] = useState([]);
+  console.log(recipes);
 
   useEffect(() => {
     fetchRecipes();
@@ -20,11 +23,7 @@ function Home() {
 
   return (
     <div className="container">
-      <div className="header">
-        <h1>Recipe Manager</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-      <RecipeForm fetchRecipes={fetchRecipes} />
+      <RecipeForm onSuccess={fetchRecipes} />
       <RecipeList recipes={recipes} fetchRecipes={fetchRecipes} />
     </div>
   );
