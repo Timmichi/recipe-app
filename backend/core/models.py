@@ -36,13 +36,13 @@ class User(AbstractBaseUser, PermissionsMixin): # AbstractBaseUser contains func
     USERNAME_FIELD = 'email'
 
 
-class Form(models.Model):
-    """Form object"""
+class Item(models.Model):
+    """Item object"""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.title
+        return self.name

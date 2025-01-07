@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from form.views import FormViewSet
+from item.views import ItemViewSet
 
-app_name = 'form'
+app_name = 'item'
 
 router = DefaultRouter()
-router.register('', FormViewSet)
+router.register('', ItemViewSet)
 
 
 urlpatterns = [

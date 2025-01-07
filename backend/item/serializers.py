@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from core.models import Form
+from core.models import Item
 
-class FormSerializer(serializers.ModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Form
-        fields = ['id', 'title']
+        model = Item
+        fields = ['id', 'name']
         # read_only_fields = ['id'] This is not necessary since the id is read-only by default

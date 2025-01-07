@@ -3,7 +3,6 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import RecipeDetail from "./pages/RecipeDetail";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -19,10 +18,8 @@ function App() {
         <Route element={<Layout />}>
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
-            <Route path="/recipes/:id" element={<RecipeDetail />} />
           </Route>
         </Route>
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -28,7 +28,7 @@ function Navigation() {
   return (
     <header className="header">
       <Link to="/" className="logo">
-        <h1>{name}'s Recipes!</h1>
+        <h1>{name}'s Items!</h1>
       </Link>
       <nav>
         <button onClick={handleLogout}>Logout</button>

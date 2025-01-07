@@ -1,51 +1,31 @@
 // src/pages/Home.jsx
 import { useState, useEffect } from "react";
 import api from "../api";
-import RecipeForm from "../components/RecipeForm";
-import RecipeList from "../components/RecipeList";
-
-const INITIAL_STATE = {
-  title: "",
-  time_minutes: "",
-  price: "",
-  link: "",
-  description: "",
-  ingredients: [],
-};
+import ItemForm from "../components/ItemForm";
+import ItemList from "../components/ItemList";
+import "../styles/Form.css";
 
 function Home() {
-  const [recipes, setRecipes] = useState([]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetchRecipes();
+    fetchItems();
   }, []);
 
-  const onSuccess = async (recipe) => {
+  const fetchItems = async () => {
     try {
-      await api.post("/recipes/", recipe);
-      fetchRecipes();
+      const res = await api.get("/items/");
+      console.log(res.data);
+      setItems(res.data);
     } catch (error) {
-      console.error("Error creating recipe:", error);
-    }
-  };
-
-  const fetchRecipes = async () => {
-    try {
-      const res = await api.get("/recipes/");
-      setRecipes(res.data);
-    } catch (error) {
-      console.error("Error fetching recipes:", error);
+      console.error("Error fetching items:", error);
     }
   };
 
   return (
-    <div className="container">
-      <RecipeForm
-        initialRecipe={INITIAL_STATE}
-        onSuccess={onSuccess}
-        isCreateRecipe={true}
-      />
-      <RecipeList recipes={recipes} />
+    <div className="home-container">
+      <ItemForm fetchItems={fetchItems} />
+      <ItemList items={items} fetchItems={fetchItems} />
     </div>
   );
 }
