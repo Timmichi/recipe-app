@@ -32,6 +32,8 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
         value={recipe.time_minutes}
         onChange={handleChange}
         placeholder="Cooking Time (minutes)"
+        min="1"
+        step="1"
         required
       />
       <input
@@ -41,6 +43,8 @@ function RecipeForm({ initialRecipe, onSuccess, isRecipeUpdate }) {
         value={recipe.price}
         onChange={handleChange}
         placeholder="Price"
+        min="0"
+        max="9999.99"
         step="0.01"
         required
       />
