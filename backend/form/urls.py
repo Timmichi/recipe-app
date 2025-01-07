@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from recipe.views import RecipeViewSet
+from form.views import FormViewSet
 
-app_name = 'recipe'
+app_name = 'form'
 
 router = DefaultRouter()
-router.register('', RecipeViewSet)
+router.register('', FormViewSet)
 
 
 urlpatterns = [

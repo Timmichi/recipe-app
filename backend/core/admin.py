@@ -13,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['email', 'name']
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'password', 'name')}),
         (
             _('Permissions'),
             {'fields': ('is_active', 'is_staff', 'is_superuser')}
@@ -30,4 +30,4 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin) # Register the custom user model with the custom user admin
-admin.site.register(models.Recipe)
+admin.site.register(models.Form)

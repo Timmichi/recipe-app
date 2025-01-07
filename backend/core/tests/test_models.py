@@ -4,7 +4,7 @@ Tests for models
 from decimal import Decimal
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from core.models import Recipe
+from core.models import Form
 
 
 class ModelTests(TestCase):
@@ -45,24 +45,3 @@ class ModelTests(TestCase):
         )
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
-
-    def test_create_recipe(self):
-        """Test creating a recipe is successful."""
-        user = get_user_model().objects.create_user(
-            email='test@example.com',
-            password='testpass123'
-        )
-        recipe = Recipe.objects.create(
-            user=user,
-            title='Test recipe',
-            time_minutes=5,
-            price=Decimal('5.50'),
-            description='Sample recipe description.',
-        )
-
-        self.assertEqual(recipe.user, user)
-        self.assertEqual(recipe.title, 'Test recipe')
-        self.assertEqual(recipe.time_minutes, 5)
-        self.assertEqual(recipe.price, Decimal('5.50'))
-        self.assertEqual(recipe.description, 'Sample recipe description.')
-        self.assertEqual(str(recipe), recipe.title)
